@@ -1,3 +1,5 @@
+const DBModel=require("../libDBModel")
+
 const arr = [
   {
     id: 1,
@@ -36,5 +38,47 @@ function postMessage(req, res) {
   });
 }
 
+function insertUser(req, res){
+
+  let body=req.body
+
+  const{username,password,email}=body
+
+  try {
+
+    const user=DBModel.createUsers({
+
+      username:username,
+
+      password:password,
+
+      email:email
+
+    });
+    res.json({
+
+      user:user,
+
+      result:body,
+
+      message:"Succesfull"
+
+    })
+
+  } catch (error) {
+    res.json({
+
+      errorMessage:error
+
+    })
+ 
+
+   
+
+  }
+
+}
+
 exports.check = check;
 exports.postMessage = postMessage;
+exports.insertUser=insertUser
