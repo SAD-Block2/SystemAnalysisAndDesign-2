@@ -12,3 +12,5 @@ function createUsers(payload){
   });
 
 }
+
+exports.createUsers = createUsers;

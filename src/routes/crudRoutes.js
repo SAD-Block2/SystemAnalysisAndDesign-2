@@ -1,4 +1,5 @@
-const DBModel = require("../lib/DBModel")
+const {result} = require("lodash");
+const DBModel = require("../lib/DBModel");
 
 const arr = [
   {
