@@ -5,6 +5,11 @@ async function connectToDB() {
     host: "localhost",
     dialect: "mysql",
   });
+  const User = require("../model/User")(sequelize);
+  const Post = require("../model/Post")(sequelize);
+
+  User.hasMany(Post);//user can have many posts
+  Post.belongsTo(User);//post belongs to a user
 
   await sequelize
     .authenticate()
