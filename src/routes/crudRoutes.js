@@ -1,3 +1,5 @@
+const { result } = require("lodash");
+const DBModel = require ("../lib/DBModel")
 const arr = [
   {
     id: 1,
@@ -38,3 +40,26 @@ function postMessage(req, res) {
 
 exports.check = check;
 exports.postMessage = postMessage;
+
+function insertUser(req, res) {
+  let body=req.body
+  const {username, password, email} = body
+  try {
+    const user=DBModel.createUsers({
+      username:username,
+      password:password,
+      email:email
+    });
+    res.json({
+      user:user,
+      result:body,
+      message:"successful"
+    })
+  } catch (error) {
+    res.json({
+      errorMessage: "error"
+    })
+  }
+}
+
+exports.insertUser=insertUser;
