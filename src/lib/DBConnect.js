@@ -16,4 +16,4 @@ async function connectToDB() {
     });
 }
 
-exports.connectToDB = connectToDB;
+exports.connectToDB = connectToDB; 
