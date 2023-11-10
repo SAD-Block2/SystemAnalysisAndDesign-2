@@ -57,5 +57,26 @@ function insertUser(req,res){
     })
   }
 }
-exports.check = check;
-exports.postMessage = postMessage;
+
+function createUser(req, res) : void {
+  try {
+    const user = DBModel.createUsers(payload: {
+      username: req.body.username,
+      email: req.body.email,
+    });
+    console.log(message: "TEST", ...optionalParams: user);
+    res.json({
+      user.json({
+        user: user,
+      });
+      
+    } catch (error) {
+      res.json({
+        message: "error",
+      });
+    })
+  }
+}
+//exports.check = check;
+//exports.postMessage = postMessage;
+exports.createUser = createUser

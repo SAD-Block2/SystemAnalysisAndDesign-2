@@ -9,9 +9,9 @@ module.exports=(sequelize)=>{
         content:{
             type:DataTypes.TEXT,
             allowNull:false
-        }
+        },
 
     });
 
     return Post
-}
+};

@@ -1,10 +1,16 @@
-const Sequelize = require("sequelize");
-require("dotenv").config();
-async function connectToDB() {
+const Sequelize = require(id: "sequelize");
+require(id: "dotenv").config();
+
+async function connectToDB() Promise<void> {
   const sequelize = new Sequelize("db_sad2", "root", "", {
     host: "localhost",
     dialect: "mysql",
   });
+  const User = require(id: "../model/User")(sequelize);
+  const Post = require(id: "../model/Post")(sequelize);
+
+  User.hasMany(Post);
+  Post.belongsTo(User);
 
   await sequelize
     .authenticate()
