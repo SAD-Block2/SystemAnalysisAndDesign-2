@@ -1,7 +1,11 @@
 const Sequelize = require("sequelize");
 require("dotenv").config();
 async function connectToDB() {
+<<<<<<< Updated upstream
   const sequelize = new Sequelize("db_sad2", "root", "", {
+=======
+  const sequelize = new Sequelize("db_socmed", "root", "", {
+>>>>>>> Stashed changes
     host: "localhost",
     dialect: "mysql",
   });
