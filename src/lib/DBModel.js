@@ -7,6 +7,12 @@ const sequelize = new Sequelize("tbl_test", "root", "123456", {
 const User = require("../model/User")(sequelize);
 const Post = require("../model/Post")(sequelize);
 const Comment = require("../model/Comment")(sequelize);
+// const Comment = require("../model/Comment")(sequelize);
+User.hasMany(Post, { foreignKey: "userId", as: "posts" }); // Use 'userPosts' as the property name
+Post.belongsTo(User, { foreignKey: "userId" });
+
+Post.hasMany(Comment, { foreignKey: "postId", as: "comments" }); // Use 'postComments' as the property name
+Comment.belongsTo(Post, { foreignKey: "postId" });
 
 function createUsers(req, res) {
   const body = req.body;
@@ -27,13 +33,36 @@ function createUsers(req, res) {
   }
 }
 
-async function findAll(res) {
+async function findAll(req, res) {
   try {
-    //    const limit = parseInt(req.query.limit) || 5; // Set the desired limit, default to 5 if not provided
+    const limit = parseInt(req.body["limit"]) || 5; // Set the desired limit, default to 5 if not provided
+    const offset = parseInt(req.body["offset"]) || 0; // Set the desired limit, default to 5 if not provided
     const users = await User.findAll({
-      //  limit: limit,
+      offset: offset,
+      limit: limit,
+      include: [
+        {
+          model: Post,
+          as: "posts", // Use 'userPosts' as the property name in the response
+          attributes: ["title", "content", "createdAt", "updatedAt"],
+          include: [
+            {
+              model: Comment,
+              as: "comments", // Use 'postComments' as the property name in the response
+              attributes: ["content", "createdAt", "updatedAt"],
+            },
+          ],
+        },
+      ],
     });
-    res.json(users.map((user) => user.toJSON()));
+
+    res.json({
+      totalCount: await User.count(),
+      fetchUsers: users.length,
+      offset,
+      limit,
+      users,
+    });
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ error: "Internal Server Error" });

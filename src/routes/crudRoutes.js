@@ -5,7 +5,7 @@ function createUser(req, res) {
 }
 
 function findAllUsers(req, res) {
-  DBModel.findAll(res);
+  DBModel.findAll(req, res);
 }
 
 function findUserID(req, res) {

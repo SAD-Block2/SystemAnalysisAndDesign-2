@@ -1,6 +1,5 @@
 // models/Post.js
 const { DataTypes } = require("sequelize");
-const User = require("./User");
 
 module.exports = (sequelize) => {
   const Post = sequelize.define("tbl_posts", {
